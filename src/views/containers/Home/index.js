@@ -5,10 +5,14 @@ import Header from '../../components/Header';
 export default class Home extends Component {
   render() {
     return (
-      <View style={{ backgroundColor: 'blue', flex: 1 }}>
-        <Header />
+      <View style={{ backgroundColor: 'white', flex: 1 }}>
+        <View style={styles.header}>
+          <Header />
+        </View>
       </View>
     );
   }
 }
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  header: {}
+});
