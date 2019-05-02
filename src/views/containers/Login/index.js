@@ -28,6 +28,9 @@ export default class Login extends Component {
     });
   };
   render() {
+    const style = { color: this.state.color };
+    const combineStyles = StyleSheet.flatten([styles.txtButton, style]);
+
     return (
       <ImageBackground
         source={require('../../../utils/img/login_city.jpeg')}
@@ -50,9 +53,7 @@ export default class Login extends Component {
             underlayColor="white"
             onHideUnderlay={this.onHideUnderlay}
           >
-            <Text style={{ color: this.state.color, fontSize: 20 }}>
-              Iniciar Sesión
-            </Text>
+            <Text style={combineStyles}>Iniciar Sesión</Text>
           </TouchableHighlight>
         </View>
       </ImageBackground>
@@ -61,6 +62,11 @@ export default class Login extends Component {
 }
 
 const styles = StyleSheet.create({
+  txtButton: {
+    fontSize: 18,
+    fontFamily: 'Montserrat-SemiBold'
+  },
+
   containerIpt: {
     flex: 1.5,
     justifyContent: 'space-evenly',
@@ -69,15 +75,17 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: '#0071bc',
     padding: 10,
     width: 300,
     height: 55,
-    borderRadius: 7
+    fontFamily: 'Montserrat-SemiBold',
+    borderRadius: 5
   },
   logo: {
     flex: 1.5,
-    width: 400,
+
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row'
@@ -92,13 +100,16 @@ const styles = StyleSheet.create({
     fontSize: 45,
     textAlign: 'center',
     color: '#0071bc',
-    fontFamily: 'Montserrat-Bold'
+    fontFamily: 'Montserrat-ExtraBold',
+    textShadowColor: 'rgba(255, 255, 255, 0.75)',
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 10
   },
   instructions: {
     textAlign: 'center',
-    fontWeight: '200',
+    fontWeight: '400',
     color: 'white',
     fontSize: 45,
-    fontFamily: 'Montserrat-Light'
+    fontFamily: 'Montserrat-SemiBold'
   }
 });

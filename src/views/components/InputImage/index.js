@@ -24,8 +24,7 @@ export const InputImage = props => {
           height: 55,
           fontSize: 17,
           width: '80%',
-          color: 'black',
-          opacity: 6
+          color: 'black'
         }}
       />
     </View>
@@ -38,8 +37,9 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: 'center',
     flexDirection: 'row',
-    backgroundColor: 'rgba(255, 255, 255, 0.7)',
-    color: 'black'
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
+    color: 'black',
+    borderRadius: 5
   },
 
   svg: {
