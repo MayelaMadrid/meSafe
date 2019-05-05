@@ -5,7 +5,7 @@ import {
   Image,
   StyleSheet,
   SafeAreaView,
-  TouchableOpacity
+  TouchableOpacity, ImageBackground
 } from 'react-native';
 import SearchInput from '../searchInput/searchInput';
 
@@ -18,35 +18,21 @@ function Header(props) {
     setShowInput(false);
   };
   return (
-    <SafeAreaView style={{ backgroundColor: '#008deb', height: 60 }}>
-      {showInput ? (
-        <View style={styles.containerHome}>
-          <SearchInput getBack={sendBack} />
-        </View>
-      ) : (
-        <View style={styles.containerHome}>
-          <Image
-            style={styles.logos}
-            source={require('../../../utils/img/home-icon-silhouette.png')}
-          />
-          <View style={styles.logoHome}>
+    <SafeAreaView style={{ backgroundColor: 'white', height: 60 }}>
+
+      <View style={styles.containerHome}>
+        <View style={styles.logoHome}>
+          <View style={styles.containerLetter}>
             <Text style={styles.meHome}> me</Text>
             <Text style={styles.safeHome}>Safe </Text>
-            <View style={{}}>
-              <Image
-                style={styles.logos}
-                source={require('../../../utils/img/placeholder.png')}
-              />
-            </View>
-          </View>
-          <TouchableOpacity onPress={searchResults}>
             <Image
-              style={styles.logos}
-              source={require('../../../utils/img/magnifier2.png')}
+              source={require('../../../utils/img/placeholder2.png')}
+              style={{ width: 15, height: 15, marginRight: 15 }}
             />
-          </TouchableOpacity>
+          </View>
+          <SearchInput getBack={sendBack} />
         </View>
-      )}
+      </View>
     </SafeAreaView>
   );
 }
@@ -62,24 +48,30 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 60,
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  containerLetter: {
+    flexDirection: 'row',
+    justifyContent: 'center',
     alignItems: 'center'
   },
   logoHome: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'space-around'
+
   },
   meHome: {
-    fontSize: 22,
-    color: 'white',
+    fontSize: 20,
+    color: '#008deb',
     fontFamily: 'Montserrat-Bold'
   },
   safeHome: {
     textAlign: 'center',
     fontWeight: '400',
-    color: 'white',
-    fontSize: 22,
+    color: '#008deb',
+    fontSize: 20,
     fontFamily: 'Montserrat-Regular'
   }
 });

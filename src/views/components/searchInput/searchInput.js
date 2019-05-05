@@ -13,57 +13,35 @@ function SearchInput(props) {
     props.getBack(true);
   };
   return (
-    <View style={{ flexDirection: 'row' }}>
-      <TouchableOpacity onPress={getBack}>
+    <View style={{ width: "65%", height: "66%" }}>
+      <View style={styles.containerInput}>
         <Image
-          source={require('../../../utils/img/left-arrow.png')}
-          style={{ width: 20, height: 20 }}
+          source={require('../../../utils/img/magnifier.png')}
+          style={{ width: 15, height: 15, marginLeft: 12 }}
         />
-      </TouchableOpacity>
-      <TextInput
-        style={{ height: 40, width: 260, backgroundColor: 'white' }}
-        placeholder="Busqueda"
-      />
-      <TouchableOpacity>
-        <Image
-          source={require('../../../utils/img/clear.png')}
-          style={{ width: 20, height: 20 }}
+        <TextInput
+          style={{ height: 40, width: "80%", paddingLeft: 22, backgroundColor: "#f6f6fe" }}
+          placeholder="Busqueda"
         />
-      </TouchableOpacity>
+        <TouchableOpacity style={{ marginEnd: 7 }} >
+          <Image
+            source={require('../../../utils/img/clear.png')}
+            style={{ width: 14, height: 14 }}
+          />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  logos: {
-    width: 10,
-    height: 20,
-    padding: 0,
-    resizeMode: 'contain'
-  },
-  containerHome: {
+  containerInput: {
+    flexDirection: 'row',
+    backgroundColor: "#f6f6fe",
     flex: 1,
-    height: 60,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center'
-  },
-  logoHome: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  meHome: {
-    fontSize: 22,
-    color: 'white',
-    fontFamily: 'Montserrat-Bold'
-  },
-  safeHome: {
-    textAlign: 'center',
-    fontWeight: '400',
-    color: 'white',
-    fontSize: 22,
-    fontFamily: 'Montserrat-Regular'
+    borderRadius: 5,
+    alignItems: "center",
+    justifyContent: "space-evenly"
   }
 });
 
