@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, Image } from 'react-native';
+import { ImageUser } from '../../components/ImageUser';
 
 
 export default class PublicacionHome extends Component {
@@ -7,10 +8,10 @@ export default class PublicacionHome extends Component {
   render() {
     const item = this.props.object;
     return (
-      <View style={{ backgroundColor: 'pink', width: "90%", height: 220, justifyContent: "center", alignItems: "center" }}>
+      <View style={{ backgroundColor: 'pink', width: "90%", height: 220, justifyContent: "center", alignItems: "center", borderRadius: 5 }}>
         <Image style={{ width: "100%", height: "60%" }} source={require('../../../utils/img/home.png')}></Image>
         <View style={{ backgroundColor: 'white', width: "100%", height: "40%", flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
-          <Image source={require('../../../utils/img/user.jpg')} style={{ height: 70, width: 70, borderRadius: 35 }} ></Image>
+          <ImageUser />
           <View style={{ width: "50%", height: "100%", justifyContent: "space-around", alignItems: "flex-start", marginStart: 5 }}>
             <Text style={styles.nameUser}>
               {item.name}
@@ -27,7 +28,7 @@ export default class PublicacionHome extends Component {
                 {item.type}
               </Text>
             </View>
-            <View style={{ backgroundColor: "yellow", borderRadius: 30, width: "100%", height: "42%", justifyContent: "center", alignItems: "center" }}>
+            <View style={{ borderRadius: 30, width: "100%", height: "42%", justifyContent: "center", alignItems: "center" }}>
               <Text style={{
                 color: "#5d5d5d",
                 fontFamily: 'Montserrat-Bold', fontSize: 12
