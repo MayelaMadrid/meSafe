@@ -11,7 +11,7 @@ export default class PublicacionHome extends Component {
       <View style={{ backgroundColor: 'pink', width: "90%", height: 220, justifyContent: "center", alignItems: "center", borderRadius: 5 }}>
         <Image style={{ width: "100%", height: "60%" }} source={require('../../../utils/img/home.png')}></Image>
         <View style={{ backgroundColor: 'white', width: "100%", height: "40%", flexDirection: "row", justifyContent: "center", alignItems: "center" }}>
-          <ImageUser />
+          <ImageUser type="small" />
           <View style={{ width: "50%", height: "100%", justifyContent: "space-around", alignItems: "flex-start", marginStart: 5 }}>
             <Text style={styles.nameUser}>
               {item.name}

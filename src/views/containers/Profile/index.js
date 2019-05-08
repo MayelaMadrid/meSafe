@@ -36,7 +36,7 @@ export default class Profile extends Component {
             <Image source={require("../../../utils/img/settings.png")} style={{ width: 25, height: 25 }}></Image>
           </View>
           <View style={{ flex: 3, justifyContent: "flex-end", alignItems: "center" }}>
-            <ImageUser></ImageUser>
+            <ImageUser type="big"></ImageUser>
             <Text style={styles.nameUser}> Mi nombre</Text>
           </View>
 

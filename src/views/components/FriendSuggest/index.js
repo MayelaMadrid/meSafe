@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { ImageUser } from '../ImageUser';
 
-export const FriendSuggest = () => {
+export const FriendSuggest = (props) => {
   return (
     <View style={{ width: 110, height: 160, justifyContent: "center", alignItems: "center", backgroundColor: "white", borderRadius: 5 }}>
-      <ImageUser></ImageUser>
+      <ImageUser type="small"></ImageUser>
       <Text style={styles.nameUser}>Diego Payan</Text>
       <Text style={styles.description}>Zona</Text>
       <Text style={styles.descriptionCity}>gamificacion</Text>
@@ -13,7 +13,7 @@ export const FriendSuggest = () => {
         style={styles.button}
         underlayColor="white"
       >
-        <Text style={{ color: "white", fontFamily: 'Montserrat-Bold', fontSize: 12 }}>  Agregar </Text>
+        {props.type === "add" ? <Text style={{ color: "white", fontFamily: 'Montserrat-Bold', fontSize: 12 }}>  Agregar </Text> : null}
       </TouchableOpacity>
     </View >
   );
