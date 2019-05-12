@@ -6,6 +6,11 @@ import { Options } from '../../components/Options';
 
 
 export default class HambugerOptions extends Component {
+  returnAuth = (val) => {
+    if (val) {
+      this.props.navigation.navigate('Auth');
+    }
+  }
 
   render() {
     return (
@@ -22,7 +27,7 @@ export default class HambugerOptions extends Component {
           <Options style={{ flexGrow: 1 }} type="profile" title="Mi perfil"></Options>
           <Options style={{ flexGrow: 1 }} type="activity" title="Registro de actividad"></Options>
           <Options style={{ flexGrow: 1 }} type="settings" title="Configuraciones"></Options>
-          <Options style={{ flexGrow: 1 }} type="logout" title="Cerrar Sesión"></Options>
+          <Options style={{ flexGrow: 1 }} type="logout" title="Cerrar Sesión" returnAuth={this.returnAuth}></Options>
 
 
         </ScrollView>

@@ -16,13 +16,13 @@ class Login extends Component {
     count: 0,
     color: 'white',
     user: undefined,
-    pass: undefined
+    pass: undefined, auth: false
   };
   handleLogin = () => {
     let { user, pass } = this.state;
     if (user && pass) {
       this.props.onLogin(user, pass).then(() => {
-        const auth = this.props.auth;
+        let auth = this.props.auth;
 
         if (auth && auth.success) {
           ToastAndroid.showWithGravityAndOffset(
@@ -33,6 +33,7 @@ class Login extends Component {
             50,
           );
           this.props.saveToken(auth.token);
+          this.setState({ auth: true });
         } else {
           ToastAndroid.showWithGravityAndOffset(
             "El usuario o contraseña son incorrectos.",
@@ -71,6 +72,9 @@ class Login extends Component {
     const style = { color: this.state.color };
     const combineStyles = StyleSheet.flatten([styles.txtButton, style]);
     console.log(this.props.auth);
+    if (this.state.auth) {
+      this.props.navigation.navigate('App');
+    }
     return (
       <ImageBackground
         source={require('../../../utils/img/login_city.jpeg')}

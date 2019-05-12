@@ -9,6 +9,6 @@ export const login = (user, pass) => async dispatch => {
   });
 };
 export const token = value => ({
-  type: auth.TOKEN,
+  type: actionTypes.TOKEN,
   payload: value,
 });

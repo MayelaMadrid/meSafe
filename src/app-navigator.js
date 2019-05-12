@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Text } from "react-native";
-import { createStackNavigator, createAppContainer, createBottomTabNavigator, createMaterialTopTabNavigator } from "react-navigation";
+import { createStackNavigator, createAppContainer, createBottomTabNavigator, createMaterialTopTabNavigator, createSwitchNavigator } from "react-navigation";
 import Login from './views/containers/Login/index';
 import Home from './views/containers/Home';
 import Profile from './views/containers/Profile';
@@ -107,7 +107,7 @@ const pageFriends = createStackNavigator(
 
 const TabNavigator = createBottomTabNavigator({
   Home: {
-    screen: Login,
+    screen: Main,
     navigationOptions: {
       tabBarLabel: "Home",
       tabBarIcon: ({ tintColor }) => (
@@ -168,4 +168,13 @@ const TabNavigator = createBottomTabNavigator({
 
 
 
-export default createAppContainer(TabNavigator);
+export default createAppContainer(createSwitchNavigator(
+  {
+
+    App: TabNavigator,
+    Auth: Login,
+  },
+  {
+    initialRouteName: 'Auth',
+  }
+));

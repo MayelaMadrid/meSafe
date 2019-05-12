@@ -15,11 +15,18 @@ setIcon = (type) => {
   }
 
 }
+sendTo = (type) => {
+  if (type === "logout") {
+
+  }
+}
 
 export const Options = (props) => {
   return (
-    <TouchableOpacity>
-      <View style={{ flexDirection: "row", alignItems: "center", borderBottomColor: "#cacaca", borderBottomWidth: 1, borderRadius: 1, padding: 18, }}>
+    <TouchableOpacity onPress={() => {
+      if (props.type === "logout") { props.returnAuth(true) }
+    }}>
+      <View style={{ flexDirection: "row", alignItems: "center", borderBottomColor: "#cacaca", borderBottomWidth: 1, borderRadius: 1, padding: 18, }} >
         <Image style={{ width: 50, height: 50 }} source={setIcon(props.type)}></Image>
         <View style={{ marginLeft: 30 }}>
           <Text style={{
