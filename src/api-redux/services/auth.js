@@ -1,5 +1,6 @@
 import { apiRequest } from './../apiRequest';
 
+
 export const login = async (user, pass) => {
   const response = await apiRequest(
     'login',
@@ -11,7 +12,7 @@ export const login = async (user, pass) => {
     {},
     {}
   );
-
+  console.log(response);
   return response.response ? response.response.data : response.data;
 };
 

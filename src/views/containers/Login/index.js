@@ -5,7 +5,7 @@ import {
   View,
   ImageBackground,
   TouchableHighlight,
-  ToastAndroid
+  ToastAndroid, AsyncStorage
 } from 'react-native';
 import { connect } from 'react-redux';
 import { InputImage } from '../../components/InputImage';
@@ -23,7 +23,7 @@ class Login extends Component {
     if (user && pass) {
       this.props.onLogin(user, pass).then(() => {
         let auth = this.props.auth;
-
+        console.log(auth, user, pass)
         if (auth && auth.success) {
           ToastAndroid.showWithGravityAndOffset(
             "Inicio de sesión correcto",
@@ -33,6 +33,11 @@ class Login extends Component {
             50,
           );
           this.props.saveToken(auth.token);
+          try {
+            AsyncStorage.setItem('token', auth.token);
+          } catch (error) {
+            // Error saving data
+          }
           this.setState({ auth: true });
         } else {
           ToastAndroid.showWithGravityAndOffset(
@@ -113,6 +118,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onLogin: (user, pass) => {
+      console.log("entro")
       return login(user, pass)(
         dispatch
       );

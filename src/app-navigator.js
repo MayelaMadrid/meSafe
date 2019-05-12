@@ -15,10 +15,10 @@ import Header from "./views/components/Header";
 import HelpCenters from "./views/containers/Help Centers/inidex";
 const TabScreenHome = createMaterialTopTabNavigator(
   {
-    Momento: { screen: Home },
-    Asaltos: { screen: Home },
-    Robos: { screen: Home },
-    Reportes: { screen: Home }
+    Momento: { screen: props => <Home {...props} type={0} /> },
+    Asaltos: { screen: props => <Home {...props} type={0} /> },
+    Robos: { screen: props => <Home {...props} type={0} /> },
+    Reportes: { screen: props => <Home {...props} type={0} /> }
 
   },
   {
@@ -111,7 +111,7 @@ const TabNavigator = createBottomTabNavigator({
     navigationOptions: {
       tabBarLabel: "Home",
       tabBarIcon: ({ tintColor }) => (
-        <Icon name="zap" size={30} color="#008deb" />
+        <Icon name="zap" size={30} color={tintColor} />
       )
     },
   },
@@ -121,7 +121,7 @@ const TabNavigator = createBottomTabNavigator({
       title: 'Details',
       tabBarLabel: "Reporte",
       tabBarIcon: ({ tintColor }) => (
-        <Icon name="plus" size={30} color="#008deb" />
+        <Icon name="plus" size={30} color={tintColor} />
       )
     }
   },
@@ -130,7 +130,7 @@ const TabNavigator = createBottomTabNavigator({
     navigationOptions: {
       tabBarLabel: "Mis amigos",
       tabBarIcon: ({ tintColor }) => (
-        <IconFA name="human-greeting" size={30} color="#008deb" />
+        <IconFA name="human-greeting" size={30} color={tintColor} />
       )
     }
   },
@@ -139,7 +139,7 @@ const TabNavigator = createBottomTabNavigator({
     navigationOptions: {
       tabBarLabel: "Opciones",
       tabBarIcon: ({ tintColor }) => (
-        <Icon name="menu" size={30} color="#008deb" />
+        <Icon name="menu" size={30} color={tintColor} />
       )
     }
   },
@@ -148,14 +148,15 @@ const TabNavigator = createBottomTabNavigator({
     navigationOptions: {
       tabBarLabel: "Ayuda",
       tabBarIcon: ({ tintColor }) => (
-        <Icon name="heart" size={30} color="#008deb" />
+        <Icon name="heart" size={30} color={tintColor} />
       )
     }
   },
 },
 
   {
-    order: ['Home', 'ADDReport', "Friends", "Settings", "Help"],
+    order: ['ADDReport', "Help", 'Home', "Friends", "Settings"],
+    initialRouteName: 'Home',
     tabBarOptions: {
       showIcon: true,
       activeTintColor: '#008deb',

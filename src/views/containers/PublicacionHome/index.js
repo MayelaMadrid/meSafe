@@ -14,12 +14,12 @@ export default class PublicacionHome extends Component {
           <ImageUser type="small" />
           <View style={{ width: "50%", height: "100%", justifyContent: "space-around", alignItems: "flex-start", marginStart: 5 }}>
             <Text style={styles.nameUser}>
-              {item.name}
+              {item.nombreUsuario}
             </Text>
             <Text numberOfLines={7} style={styles.description}>
-              {item.description}
+              {item.descripcion}
             </Text>
-            <Text style={styles.descriptionCity}>{item.place}</Text>
+            <Text style={styles.descriptionCity}>{item.latitud}</Text>
           </View>
           <View style={{ width: "20%", height: "100%", justifyContent: "space-evenly", alignItems: "center" }}>
             <View style={{ borderColor: "red", width: "100%", borderWidth: 1, borderRadius: 30, height: "38%", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
