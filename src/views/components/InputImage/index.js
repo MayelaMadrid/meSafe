@@ -1,9 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { Image, StyleSheet, View, TextInput } from 'react-native';
 
-export const InputImage = props => {
-  let placeholder, img, pass;
 
+
+export const InputImage = props => {
+  const [input, setInput] = useState(undefined);
+  let placeholder, img, pass;
+  const onChangeInput = (text) => {
+    props.handleChange(props.type, text);
+    setInput(text);
+  }
   if (props.type === 'user') {
     placeholder = 'Usuario';
     pass = false;
@@ -19,6 +25,8 @@ export const InputImage = props => {
       <Image source={img} style={styles.svg} />
       <TextInput
         placeholder={placeholder}
+        onChangeText={(text) => onChangeInput(text)}
+        value={input}
         secureTextEntry={pass}
         style={{
           height: 55,

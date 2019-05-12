@@ -8,3 +8,7 @@ export const login = (user, pass) => async dispatch => {
     payload: result
   });
 };
+export const token = value => ({
+  type: auth.TOKEN,
+  payload: value,
+});

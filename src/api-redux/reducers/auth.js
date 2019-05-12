@@ -1,7 +1,8 @@
 import * as actionTypes from '../actionTypes/auth';
 
 const initialState = {
-  login: undefined
+  login: undefined,
+  token: undefined
 };
 
 export default function auth(state = initialState, action) {
@@ -10,6 +11,11 @@ export default function auth(state = initialState, action) {
     case actionTypes.LOGIN:
       newState = Object.assign({}, state, {
         login: action.payload
+      });
+      return newState;
+    case actionTypes.TOKEN:
+      newState = Object.assign({}, state, {
+        token: action.payload
       });
       return newState;
 

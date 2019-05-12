@@ -4,22 +4,59 @@ import {
   Text,
   View,
   ImageBackground,
-  TouchableHighlight
+  TouchableHighlight,
+  ToastAndroid
 } from 'react-native';
 import { connect } from 'react-redux';
 import { InputImage } from '../../components/InputImage';
-import { login } from "../../../api-redux/actions/auth"
+import { login, token } from "../../../api-redux/actions/auth"
+
 class Login extends Component {
   state = {
     count: 0,
-    color: 'white'
+    color: 'white',
+    user: undefined,
+    pass: undefined
   };
-  onPress = () => {
-    this.setState({
-      count: this.state.count + 1
-    });
-    this.props.onLogin("dd", 1234);
+  handleLogin = () => {
+    let { user, pass } = this.state;
+    if (user && pass) {
+      this.props.onLogin(user, pass).then(() => {
+        const auth = this.props.auth;
+
+        if (auth && auth.success) {
+          ToastAndroid.showWithGravityAndOffset(
+            "Inicio de sesión correcto",
+            ToastAndroid.SHORT,
+            ToastAndroid.BOTTOM,
+            25,
+            50,
+          );
+          this.props.saveToken(auth.token);
+        } else {
+          ToastAndroid.showWithGravityAndOffset(
+            "El usuario o contraseña son incorrectos.",
+            ToastAndroid.SHORT,
+            ToastAndroid.BOTTOM,
+            25,
+            50,
+          );
+        }
+      })
+    }
+    else {
+      ToastAndroid.showWithGravityAndOffset(
+        "Los campos no deben ir vacios.",
+        ToastAndroid.SHORT,
+        ToastAndroid.BOTTOM,
+        25,
+        50,
+      );
+    }
   };
+  handleChange = (type, value) => {
+    this.setState({ [type]: value });
+  }
   onShowUnderlay = () => {
     this.setState({
       color: '#0071bc'
@@ -31,10 +68,9 @@ class Login extends Component {
     });
   };
   render() {
-
     const style = { color: this.state.color };
     const combineStyles = StyleSheet.flatten([styles.txtButton, style]);
-
+    console.log(this.props.auth);
     return (
       <ImageBackground
         source={require('../../../utils/img/login_city.jpeg')}
@@ -45,28 +81,29 @@ class Login extends Component {
           <Text style={styles.instructions}>Safe </Text>
         </View>
         <View style={styles.containerIpt}>
-          <InputImage type="user" />
-          <InputImage type="pass" />
+          <InputImage type="user" handleChange={this.handleChange} />
+          <InputImage type="pass" handleChange={this.handleChange} />
         </View>
 
-        <View style={{ flex: 1.6, justifyContent: 'center' }}>
+        <View style={styles.viewButton}>
           <TouchableHighlight
             onShowUnderlay={this.onShowUnderlay}
             style={styles.button}
-            onPress={this.onPress}
+            onPress={this.handleLogin}
             underlayColor="white"
             onHideUnderlay={this.onHideUnderlay}
           >
             <Text style={combineStyles}>Iniciar Sesión</Text>
           </TouchableHighlight>
         </View>
+
       </ImageBackground>
     );
   }
 }
 const mapStateToProps = state => {
   return {
-
+    auth: state.Api.Auth.login
   };
 };
 const mapDispatchToProps = dispatch => {
@@ -75,6 +112,9 @@ const mapDispatchToProps = dispatch => {
       return login(user, pass)(
         dispatch
       );
+    },
+    saveToken: value => {
+      dispatch(token(value));
     }
   };
 };
@@ -132,5 +172,9 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 45,
     fontFamily: 'Montserrat-SemiBold'
+  },
+  viewButton: {
+    flex: 1.6,
+    justifyContent: 'center'
   }
 });

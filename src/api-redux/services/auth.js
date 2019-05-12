@@ -5,8 +5,8 @@ export const login = async (user, pass) => {
     'login',
     'POST',
     {
-      "username": "dpayan",
-      "pass": "1234"
+      "username": user,
+      "pass": pass
     },
     {},
     {}
