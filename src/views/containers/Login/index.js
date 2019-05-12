@@ -6,8 +6,10 @@ import {
   ImageBackground,
   TouchableHighlight
 } from 'react-native';
+import { connect } from 'react-redux';
 import { InputImage } from '../../components/InputImage';
-export default class Login extends Component {
+import { login } from "../../../api-redux/actions/auth"
+class Login extends Component {
   state = {
     count: 0,
     color: 'white'
@@ -16,6 +18,7 @@ export default class Login extends Component {
     this.setState({
       count: this.state.count + 1
     });
+    this.props.onLogin("dd", 1234);
   };
   onShowUnderlay = () => {
     this.setState({
@@ -28,6 +31,7 @@ export default class Login extends Component {
     });
   };
   render() {
+
     const style = { color: this.state.color };
     const combineStyles = StyleSheet.flatten([styles.txtButton, style]);
 
@@ -60,6 +64,25 @@ export default class Login extends Component {
     );
   }
 }
+const mapStateToProps = state => {
+  return {
+
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    onLogin: (user, pass) => {
+      return login(user, pass)(
+        dispatch
+      );
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);
 
 const styles = StyleSheet.create({
   txtButton: {
@@ -80,7 +103,6 @@ const styles = StyleSheet.create({
     padding: 10,
     width: 300,
     height: 55,
-    fontFamily: 'Montserrat-SemiBold',
     borderRadius: 5
   },
   logo: {

@@ -1,16 +1,7 @@
 import { createStore } from 'redux';
-import reducer from './src/reducer';
+import rootReducer from './src/reducer';
 
-
-// const store = createStore(reducer, {
-//   suggestionList: [],
-//   categoryList: [],
-// })
-
-
-
-
-const store = createStore(reducer)
+const store = createStore(rootReducer)
 
 
 export { store };

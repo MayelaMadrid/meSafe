@@ -107,7 +107,7 @@ const pageFriends = createStackNavigator(
 
 const TabNavigator = createBottomTabNavigator({
   Home: {
-    screen: Main,
+    screen: Login,
     navigationOptions: {
       tabBarLabel: "Home",
       tabBarIcon: ({ tintColor }) => (
