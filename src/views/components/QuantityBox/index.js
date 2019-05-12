@@ -9,13 +9,13 @@ import {
 export const QuantityBox = (props) => {
   return (
     <View style={style.containerQuantity}>
-      <Text style={style.letter}>
+      <Text style={props.color === "blue" ? style.letter2 : props.color === "red" ? style.letter3 : style.letter}>
         {props.quantity}
       </Text>
-      <Text style={style.letter}>
+      <Text style={props.color === "blue" ? style.letter2 : props.color === "red" ? style.letter3 : style.letter}>
         {props.title}
       </Text>
-    </View>);
+    </View >);
 }
 
 const style = StyleSheet.create({
@@ -26,6 +26,16 @@ const style = StyleSheet.create({
   letter: {
     fontSize: 16,
     color: "white",
+    fontFamily: 'Montserrat-Bold'
+  },
+  letter2: {
+    fontSize: 12,
+    color: "#008deb",
+    fontFamily: 'Montserrat-Bold'
+  },
+  letter3: {
+    fontSize: 12,
+    color: "red",
     fontFamily: 'Montserrat-Bold'
   }
 })

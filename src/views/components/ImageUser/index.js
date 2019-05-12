@@ -4,7 +4,7 @@ import { StyleSheet, Image } from 'react-native';
 
 export const ImageUser = (props) => {
   return (
-    <Image source={require('../../../utils/img/user.jpg')} style={props.type === "small" ? styles.imageUser : styles2.ImageUser} ></Image>
+    <Image source={require('../../../utils/img/user.jpg')} style={props.type === "small" ? styles.imageUser : styles2.imageUser} ></Image>
   );
 }
 const styles = StyleSheet.create({
@@ -16,8 +16,8 @@ const styles = StyleSheet.create({
 });
 const styles2 = StyleSheet.create({
   imageUser: {
-    height: 100,
-    width: 100,
-    borderRadius: 35
+    height: 90,
+    width: 90,
+    borderRadius: 45
   }
 });

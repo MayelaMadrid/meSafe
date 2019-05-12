@@ -16,7 +16,7 @@ export default class PublicacionHome extends Component {
             <Text style={styles.nameUser}>
               {item.name}
             </Text>
-            <Text style={styles.description}>
+            <Text numberOfLines={7} style={styles.description}>
               {item.description}
             </Text>
             <Text style={styles.descriptionCity}>{item.place}</Text>

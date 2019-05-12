@@ -4,17 +4,19 @@ import { ImageUser } from '../ImageUser';
 
 export const FriendSuggest = (props) => {
   return (
-    <View style={{ width: 110, height: 160, justifyContent: "center", alignItems: "center", backgroundColor: "white", borderRadius: 5 }}>
+    <View style={{ width: 110, marginLeft: 10, height: 160, justifyContent: "center", alignItems: "center", backgroundColor: "white", borderRadius: 5 }}>
       <ImageUser type="small"></ImageUser>
       <Text style={styles.nameUser}>Diego Payan</Text>
       <Text style={styles.description}>Zona</Text>
       <Text style={styles.descriptionCity}>gamificacion</Text>
-      <TouchableOpacity
-        style={styles.button}
-        underlayColor="white"
-      >
-        {props.type === "add" ? <Text style={{ color: "white", fontFamily: 'Montserrat-Bold', fontSize: 12 }}>  Agregar </Text> : null}
-      </TouchableOpacity>
+      {props.type === "add" ?
+        <TouchableOpacity
+          style={styles.button}
+          underlayColor="white"
+        >
+          <Text style={{ color: "white", fontFamily: 'Montserrat-Bold', fontSize: 12 }}>  Agregar </Text>
+        </TouchableOpacity>
+        : null}
     </View >
   );
 }
