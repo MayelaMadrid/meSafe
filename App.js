@@ -11,7 +11,11 @@ import AddReport from './src/views/containers/AddReport';
 import DefaultMarkers from "./src/views/containers/Map";
 import moment from "moment";
 import Geocode from "react-geocode";
+import AppNavigator from "./src/app-navigator";
+import { Provider } from 'react-redux';
+import { store } from './store';
 moment.locale('es');
+
 export default class App extends Component {
   componentDidMount() {
 
@@ -19,11 +23,17 @@ export default class App extends Component {
     Geocode.setApiKey("AIzaSyDCTc_IuiXgVT8RmAAmyaOW4s3v3_22nlk");
   }
 
+
   render() {
     return (
-      <View style={styles.container}>
-        <DefaultMarkers></DefaultMarkers>
-      </View>
+      <Provider store={store}>
+
+        <View style={styles.container}>
+          <AppNavigator></AppNavigator>
+        </View>
+      </Provider>
+
+
     );
   }
 }

@@ -20,13 +20,11 @@ export default class Home extends Component {
   render() {
     return (
       <View style={{ backgroundColor: 'white', flex: 1 }}>
-        <View style={styles.header}>
-          <Header />
-        </View>
 
-        <View style={{ width: "100%", marginLeft: 35, marginTop: 5, height: "75%", paddingBottom: 100 }}>
+
+        <View style={{ flex: 1, marginLeft: 35, marginTop: 5 }}>
           <FlatList
-            style={{ width: "100%", height: "75%" }}
+            style={{ flex: 1 }}
             contentContainerStyle={{ borderRadius: 5 }}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}

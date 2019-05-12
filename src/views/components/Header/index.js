@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import SearchInput from '../searchInput/searchInput';
 
-function Header(props) {
+const Header = (props) => {
   const [showInput, setShowInput] = useState(false);
   const searchResults = () => {
     setShowInput(true);
