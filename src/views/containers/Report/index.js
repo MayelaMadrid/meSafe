@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import { Platform, StyleSheet, Text, View, FlatList, Image, ScrollView, Button, Dimensions } from 'react-native';
 import { QuantityBox } from '../../components/QuantityBox';
-
-
+import { getReportById } from "../../../api-redux/actions/reports";
+import { connect } from 'react-redux';
+import Geocode from "react-geocode";
+import { Loading } from '../../components/Loading';
 const data = [{ nombre: "https://facebook.github.io/react/logo-og.png" }, { nombre: "https://i.pinimg.com/564x/a6/11/27/a6112736b22d00b628ae6680c50922c0.jpg" }, { nombre: "https://i.pinimg.com/564x/d1/df/80/d1df802197eb931e29592ce4915f7cf2.jpg" }];
 
-export default class Report extends Component {
+class Report extends Component {
   constructor() {
     super();
 
-    this.state = { orientation: '' }
+    this.state = { orientation: '', loading: true }
   }
 
   getOrientation = () => {
-    console.log(Dimensions.get('window').width)
     if (this.refs.rootView) {
       if (Dimensions.get('window').width < Dimensions.get('window').height) {
         this.setState({ orientation: 'portrait' });
@@ -23,8 +24,27 @@ export default class Report extends Component {
       }
     }
   }
+  getAddres = (lat, lon) => {
+    let address;
+    if (lat && lon) {
+      Geocode.fromLatLng(lat.toString(), lon.toString()).then(
+        response => {
+          address = response.results[0].formatted_address;
+        },
+        error => {
+          address = "no dispoble"
+          console.log("hkhjk", error);
+        }
+      );
+      return address;
+    }
+  }
 
   componentDidMount() {
+    this.props.getReportById(this.props.navigation.state.params.itemId).then(() => {
+      this.setState({ loading: false });
+    });
+
     this.getOrientation();
 
     Dimensions.addEventListener('change', () => {
@@ -32,66 +52,101 @@ export default class Report extends Component {
     });
   }
   render() {
-    console.log(this.state.orientation)
+    let whiles;
+    let report = this.props.report;
+
+    if (report && !report.success) {
+      whiles = (<View>
+        <Text>Sin resultados  :(</Text>
+      </View>);
+    }
+    if (this.state.loading && report) {
+      whiles = (<Loading></Loading>)
+    }
     return (
-      <View ref="rootView" style={styles.container}>
-        <View style={{ backgroundColor: "#F9F8FD", flex: 2, justifyItems: "center", alignItems: "center" }}>
-          <ScrollView style={{ flex: 1 }}>
-            <FlatList
-              style={{ flex: 1, marginRight: 15, marginLeft: 15 }}
-              ItemSeparatorComponent={() => (
-                <View style={{ width: 8 }} />
-              )}
-              horizontal={true}
-              data={data}
-              renderItem={({ item }) => <Image style={{
-                width: 300, height: 400, borderRadius: 5, shadowColor: '#000',
+      <View style={{ flex: 1 }}>
+        {report && report.success && !this.state.loading ?
+          <ScrollView ref="rootView" style={styles.container}>
+
+            <View style={{ backgroundColor: "#F9F8FD", flex: 2, justifyItems: "center", alignItems: "center" }}>
+              <ScrollView style={{ flex: 1 }}>
+                <FlatList
+                  style={{ flex: 1, marginRight: 15, marginLeft: 15 }}
+                  ItemSeparatorComponent={() => (
+                    <View style={{ width: 8 }} />
+                  )}
+                  horizontal={true}
+                  data={data}
+                  renderItem={({ item }) => <Image style={{
+                    width: 300, height: 400, borderRadius: 5, shadowColor: '#000',
+                    shadowOffset: { width: 0, height: 0 },
+                    shadowOpacity: 0.75,
+                    shadowRadius: 2,
+                    elevation: 10
+                  }} source={{ uri: item.nombre }} />}
+                />
+              </ScrollView>
+
+            </View>
+            <View style={{ flex: 1, backgroundColor: "#F9F8FD", justifyContent: "center", alignItems: "center" }}>
+              <View style={{
+                backgroundColor: "white", width: "90%", height: this.state.orientation == 'portrait' ? "115%" : "160%", marginBottom: 55, borderRadius: 5, shadowColor: '#000',
                 shadowOffset: { width: 0, height: 0 },
                 shadowOpacity: 0.75,
                 shadowRadius: 2,
-                elevation: 10
-              }} source={{ uri: item.nombre }} />}
-            />
-          </ScrollView>
-
-        </View>
-        <View style={{ flex: 1, backgroundColor: "#F9F8FD", justifyContent: "center", alignItems: "center" }}>
-          <View style={{
-            backgroundColor: "white", width: "85%", height: this.state.orientation == 'portrait' ? "125%" : "160%", marginBottom: 95, borderRadius: 5, shadowColor: '#000',
-            shadowOffset: { width: 0, height: 0 },
-            shadowOpacity: 0.75,
-            shadowRadius: 2,
-            elevation: 10,
-            justifyContent: "space-between",
-            padding: 10
-          }} >
-            <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-              <Text style={styles.nameUser}>Quien lo subio</Text>
-              <View style={{ borderColor: "red", width: 100, borderWidth: 1, borderRadius: 30, height: 30, flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
-                <Image source={require('../../../utils/img/fighting.png')} style={{ height: 15, width: 15, borderRadius: 35 }} ></Image>
-                <Text style={{ fontSize: 11 }}>
-                  Asalto
-              </Text>
+                elevation: 10,
+                justifyContent: "space-evenly",
+                padding: 10
+              }} >
+                <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+                  <Text style={styles.nameUser}>{report.data["0"].nombreUsuario}</Text>
+                  <View style={{ borderColor: "red", width: 100, borderWidth: 1, borderRadius: 30, height: 30, flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+                    <Image source={require('../../../utils/img/fighting.png')} style={{ height: 15, width: 15, borderRadius: 35 }} ></Image>
+                    <Text style={{ fontSize: 11 }}>
+                      {report.data["0"].tipoReporte}
+                    </Text>
+                  </View>
+                </View>
+                <Text adjustsFontSizeToFit={true} style={styles.description}>{report.data["0"].descripcion}</Text>
+                <Text adjustsFontSizeToFit={true} style={styles.description}>{this.getAddres(report.data["0"].latitud, report.data["0"].longitud)}</Text>
+                <View style={{ justifyContent: "space-evenly", flexDirection: "row" }}>
+                  <QuantityBox title="negativos" quantity={report.data["0"].negativos} color="red" ></QuantityBox>
+                  <QuantityBox title="positivos" quantity={report.data["0"].positivos} color="blue"></QuantityBox>
+                </View>
+                <Button
+                  title="Ver Mapa"
+                  color="#008deb"
+                  accessibilityLabel="Learn more about this purple button"
+                />
               </View>
-            </View>
-            <Text adjustsFontSizeToFit={true} style={styles.description}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid enim pariatur veritatis repudiandae aut minus porro magni, temporibus fuga! Reprehenderit cupiditate enim aliquam molestias corrupti temporibus necessitatibus eum, deserunt nisi!</Text>
-            <View style={{ justifyContent: "space-evenly", flexDirection: "row" }}>
-              <QuantityBox title="negativos" quantity="2" color="red" ></QuantityBox>
-              <QuantityBox title="positivos" quantity="20" color="blue"></QuantityBox>
-            </View>
-            <Button
-              title="Ver Mapa"
-              color="#008deb"
-              accessibilityLabel="Learn more about this purple button"
-            />
-          </View>
 
-        </View>
-      </View >
+            </View>
+          </ScrollView > : whiles
+        }
+      </View>
     );
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    report: state.Api.Reports.reportById
+  };
+};
+const mapDispatchToProps = dispatch => {
+  return {
+    getReportById: (id) => {
+      return getReportById(id)(
+        dispatch
+      );
+    }
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Report);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -99,7 +154,7 @@ const styles = StyleSheet.create({
     paddingTop: 10
   },
   nameUser: {
-    fontSize: 16,
+    fontSize: 15,
     color: "#008deb",
     fontFamily: 'Montserrat-Bold'
   },

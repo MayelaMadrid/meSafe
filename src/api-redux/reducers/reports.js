@@ -1,21 +1,45 @@
 import * as actionTypes from '../actionTypes/reports';
 
 const initialState = {
-  reports: undefined,
-  newReport: undefined
+  reportsNow: undefined,
+  reportsAs: undefined,
+  reportsRo: undefined,
+  reportsRe: undefined,
+  newReport: undefined,
+  reportById: undefined
 };
 
 export default function reports(state = initialState, action) {
   let newState;
   switch (action.type) {
-    case actionTypes.REPORTS:
+    case actionTypes.REPORTS_NOW:
       newState = Object.assign({}, state, {
-        reports: action.payload
+        reportsNow: action.payload
+      });
+      return newState;
+    case actionTypes.REPORTS_AS:
+      newState = Object.assign({}, state, {
+        reportsAs: action.payload
+      });
+      return newState;
+    case actionTypes.REPORTS_RO:
+      newState = Object.assign({}, state, {
+        reportsRo: action.payload
+      });
+      return newState;
+    case actionTypes.REPORTS_RE:
+      newState = Object.assign({}, state, {
+        reportsRe: action.payload
       });
       return newState;
     case actionTypes.NEW_REPORT:
       newState = Object.assign({}, state, {
         newReport: action.payload
+      });
+      return newState;
+    case actionTypes.REPORT_BY_ID:
+      newState = Object.assign({}, state, {
+        reportById: action.payload
       });
       return newState;
     default:

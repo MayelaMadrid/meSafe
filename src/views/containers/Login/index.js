@@ -16,14 +16,13 @@ class Login extends Component {
     count: 0,
     color: 'white',
     user: undefined,
-    pass: undefined, auth: false
+    pass: undefined, auth: true
   };
   handleLogin = () => {
     let { user, pass } = this.state;
     if (user && pass) {
       this.props.onLogin(user, pass).then(() => {
         let auth = this.props.auth;
-        console.log(auth, user, pass)
         if (auth && auth.success) {
           ToastAndroid.showWithGravityAndOffset(
             "Inicio de sesión correcto",
@@ -36,7 +35,6 @@ class Login extends Component {
           try {
             AsyncStorage.setItem('token', auth.token);
           } catch (error) {
-            // Error saving data
           }
           this.setState({ auth: true });
         } else {
@@ -76,7 +74,6 @@ class Login extends Component {
   render() {
     const style = { color: this.state.color };
     const combineStyles = StyleSheet.flatten([styles.txtButton, style]);
-    console.log(this.props.auth);
     if (this.state.auth) {
       this.props.navigation.navigate('App');
     }
@@ -118,7 +115,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onLogin: (user, pass) => {
-      console.log("entro")
       return login(user, pass)(
         dispatch
       );

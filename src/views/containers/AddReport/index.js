@@ -25,9 +25,7 @@ export default class App extends React.Component {
     ImagePicker.launchImageLibrary(options, response => {
       if (response.uri) {
         const { photo } = this.state;
-        console.log(response)
         let photos = photo.concat(response)
-        console.log(photos)
         this.setState({ photo: photos });
       }
     });
@@ -53,7 +51,6 @@ export default class App extends React.Component {
       latitudeDelta: 0.0922,
       longitudeDelta: 0.0421
     };
-    console.log(this.state.location)
     return (
 
       <View style={{ backgroundColor: "#F9F8FD", flex: 1 }}>

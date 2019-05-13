@@ -70,7 +70,6 @@ class DefaultMarkers extends React.Component {
     Geocode.fromLatLng(e.nativeEvent.coordinate.latitude.toString(), e.nativeEvent.coordinate.longitude.toString()).then(
       response => {
         const address = response.results[0].formatted_address;
-        console.log(address);
       },
       error => {
         console.error("hkhjk", error);

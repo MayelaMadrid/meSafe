@@ -12,7 +12,6 @@ export const login = async (user, pass) => {
     {},
     {}
   );
-  console.log(response);
   return response.response ? response.response.data : response.data;
 };
 

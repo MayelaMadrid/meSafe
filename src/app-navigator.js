@@ -13,12 +13,14 @@ import Icon from 'react-native-vector-icons/Feather';
 import IconFA from 'react-native-vector-icons/MaterialCommunityIcons';
 import Header from "./views/components/Header";
 import HelpCenters from "./views/containers/Help Centers/inidex";
+import PublicacionHome from "./views/containers/PublicacionHome";
+import Callouts from "./views/components/mapis";
 const TabScreenHome = createMaterialTopTabNavigator(
   {
     Momento: { screen: props => <Home {...props} type={0} /> },
-    Asaltos: { screen: props => <Home {...props} type={0} /> },
-    Robos: { screen: props => <Home {...props} type={0} /> },
-    Reportes: { screen: props => <Home {...props} type={0} /> }
+    Asaltos: { screen: props => <Home {...props} type={2} /> },
+    Robos: { screen: props => <Home {...props} type={1} /> },
+    Reportes: { screen: props => <Home {...props} type={3} /> }
 
   },
   {
@@ -58,7 +60,23 @@ const Main = createStackNavigator(
         headerTitle: <Header />,
       }),
     },
-    Report: Report,
+    Report: {
+      screen: Report, navigationOptions: () => ({
+        title: "Reporte",
+        headerStyle: {
+          backgroundColor: '#008deb',
+          textAlign: "center"
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {
+          fontWeight: 'bold',
+          textAlign: "center"
+        },
+
+      }),
+    },
+    Map: DefaultMarkers,
+    ReportHome: PublicacionHome
 
   });
 
@@ -107,11 +125,11 @@ const pageFriends = createStackNavigator(
 
 const TabNavigator = createBottomTabNavigator({
   Home: {
-    screen: Main,
+    screen: Callouts,
     navigationOptions: {
       tabBarLabel: "Home",
       tabBarIcon: ({ tintColor }) => (
-        <Icon name="zap" size={30} color={tintColor} />
+        <Icon name="zap" size={20} color={tintColor} />
       )
     },
   },
@@ -121,7 +139,7 @@ const TabNavigator = createBottomTabNavigator({
       title: 'Details',
       tabBarLabel: "Reporte",
       tabBarIcon: ({ tintColor }) => (
-        <Icon name="plus" size={30} color={tintColor} />
+        <Icon name="plus" size={20} color={tintColor} />
       )
     }
   },
@@ -130,7 +148,7 @@ const TabNavigator = createBottomTabNavigator({
     navigationOptions: {
       tabBarLabel: "Mis amigos",
       tabBarIcon: ({ tintColor }) => (
-        <IconFA name="human-greeting" size={30} color={tintColor} />
+        <IconFA name="human-greeting" size={20} color={tintColor} />
       )
     }
   },
@@ -139,7 +157,7 @@ const TabNavigator = createBottomTabNavigator({
     navigationOptions: {
       tabBarLabel: "Opciones",
       tabBarIcon: ({ tintColor }) => (
-        <Icon name="menu" size={30} color={tintColor} />
+        <Icon name="menu" size={20} color={tintColor} />
       )
     }
   },
@@ -148,7 +166,7 @@ const TabNavigator = createBottomTabNavigator({
     navigationOptions: {
       tabBarLabel: "Ayuda",
       tabBarIcon: ({ tintColor }) => (
-        <Icon name="heart" size={30} color={tintColor} />
+        <Icon name="heart" size={20} color={tintColor} />
       )
     }
   },
@@ -169,7 +187,7 @@ const TabNavigator = createBottomTabNavigator({
 
 
 
-export default createAppContainer(createSwitchNavigator(
+export const CreateAppContainer = createAppContainer(createSwitchNavigator(
   {
 
     App: TabNavigator,
