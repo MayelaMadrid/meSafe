@@ -43,6 +43,28 @@ export const getReportById = async (id) => {
     {},
     {}
   );
+  return response.response ? response.response.data : response.data;
+};
+export const getReportByUser = async () => {
+  const response = await apiRequest(
+    `reportes/usuario`,
+    'GET',
+    {},
+    {},
+    {}
+  );
+
+  return response.response ? response.response.data : response.data;
+};
+
+export const getReportSearch = async (word) => {
+  const response = await apiRequest(
+    `reportes/busqueda/${word}`,
+    'GET',
+    {},
+    {},
+    {}
+  );
 
   return response.response ? response.response.data : response.data;
 };

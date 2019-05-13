@@ -49,7 +49,6 @@ class Home extends Component {
     if (!reports) {
       whiles = (<Loading></Loading>)
     }
-
     return (
       <View style={{ backgroundColor: '#F9F8FD', flex: 1 }}>
         {reports && reports.success ?

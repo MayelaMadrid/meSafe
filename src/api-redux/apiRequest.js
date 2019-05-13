@@ -13,7 +13,7 @@ get = async () => {
 export const apiRequest = async (path, method, data, params, headers) => {
   await get();
   try {
-    const url = `http://c9f6b787.ngrok.io/${path}`;
+    const url = `http://eb8fd307.ngrok.io/${path}`;
     const requestData = {
       url,
       data,

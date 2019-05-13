@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import { ImageUser } from '../../components/ImageUser';
+import moment from "moment";
 import IconFA from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-
+moment.locale('es');
 
 export default class PublicacionHome extends Component {
   setIcon = (type) => {
@@ -46,7 +47,6 @@ export default class PublicacionHome extends Component {
   }
   render() {
     const item = this.props.object;
-    console.log(item);
     return (
       <TouchableOpacity onPress={() => {
         this.props.navigation.navigate('Report', {
@@ -64,6 +64,7 @@ export default class PublicacionHome extends Component {
               <Text numberOfLines={7} style={styles.description}>
                 {item.descripcion}
               </Text>
+              <Text style={styles.descriptionCity}>{moment(item.fecha).format('LLL')}</Text>
               <Text style={styles.descriptionCity}>{item.latitud}</Text>
             </View>
             <View style={{ width: "20%", height: "100%", justifyContent: "space-evenly", alignItems: "center" }}>

@@ -42,3 +42,18 @@ export const getReportById = (id) => async dispatch => {
     payload: result
   });
 };
+
+export const getReportByUser = () => async dispatch => {
+  const result = await services.getReportByUser();
+  dispatch({
+    type: actionTypes.REPORT_BY_USER,
+    payload: result
+  });
+};
+export const getReportSearch = (word) => async dispatch => {
+  const result = await services.getReportByUser(word);
+  dispatch({
+    type: actionTypes.REPORT_SEARCH,
+    payload: result
+  });
+};

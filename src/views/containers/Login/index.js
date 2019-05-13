@@ -16,7 +16,7 @@ class Login extends Component {
     count: 0,
     color: 'white',
     user: undefined,
-    pass: undefined, auth: true
+    pass: undefined, auth: false
   };
   handleLogin = () => {
     let { user, pass } = this.state;

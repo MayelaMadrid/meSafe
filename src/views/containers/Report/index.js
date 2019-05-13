@@ -4,6 +4,7 @@ import { QuantityBox } from '../../components/QuantityBox';
 import { getReportById } from "../../../api-redux/actions/reports";
 import { connect } from 'react-redux';
 import Geocode from "react-geocode";
+import moment from "moment";
 import { Loading } from '../../components/Loading';
 const data = [{ nombre: "https://facebook.github.io/react/logo-og.png" }, { nombre: "https://i.pinimg.com/564x/a6/11/27/a6112736b22d00b628ae6680c50922c0.jpg" }, { nombre: "https://i.pinimg.com/564x/d1/df/80/d1df802197eb931e29592ce4915f7cf2.jpg" }];
 
@@ -32,7 +33,7 @@ class Report extends Component {
           address = response.results[0].formatted_address;
         },
         error => {
-          address = "no dispoble"
+          address = "no disponible";
           console.log("hkhjk", error);
         }
       );
@@ -60,9 +61,10 @@ class Report extends Component {
         <Text>Sin resultados  :(</Text>
       </View>);
     }
-    if (this.state.loading && report) {
+    if ((this.state.loading && report) || (this.state.loading && !report)) {
       whiles = (<Loading></Loading>)
     }
+    console.log(report);
     return (
       <View style={{ flex: 1 }}>
         {report && report.success && !this.state.loading ?
@@ -107,6 +109,7 @@ class Report extends Component {
                     </Text>
                   </View>
                 </View>
+                <Text adjustsFontSizeToFit={true} style={styles.description}>{moment(report.data["0"].fecha).format('LLL')}</Text>
                 <Text adjustsFontSizeToFit={true} style={styles.description}>{report.data["0"].descripcion}</Text>
                 <Text adjustsFontSizeToFit={true} style={styles.description}>{this.getAddres(report.data["0"].latitud, report.data["0"].longitud)}</Text>
                 <View style={{ justifyContent: "space-evenly", flexDirection: "row" }}>

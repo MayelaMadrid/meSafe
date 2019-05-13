@@ -6,7 +6,9 @@ const initialState = {
   reportsRo: undefined,
   reportsRe: undefined,
   newReport: undefined,
-  reportById: undefined
+  reportById: undefined,
+  reportByUser: undefined,
+  reportSearch:undefined
 };
 
 export default function reports(state = initialState, action) {
@@ -40,6 +42,16 @@ export default function reports(state = initialState, action) {
     case actionTypes.REPORT_BY_ID:
       newState = Object.assign({}, state, {
         reportById: action.payload
+      });
+      return newState;
+    case actionTypes.REPORT_BY_USER:
+      newState = Object.assign({}, state, {
+        reportByUser: action.payload
+      });
+      return newState;
+      case actionTypes.REPORT_SEARCH:
+      newState = Object.assign({}, state, {
+        reportSearch: action.payload
       });
       return newState;
     default:
